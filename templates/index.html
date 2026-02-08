@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Server Load Prediction | Educational ML Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="{{url_for('static', filename='output.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="bg-gradient-to-br from-[#caf0f8] via-[#ade8f4] to-[#90e0ef] min-h-screen font-['Inter'] flex flex-col justify-between overflow-x-hidden">
+
+    <header class="w-full bg-white border-b border-[#48cae4] shadow-sm relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-10 md:py-20 text-center">
+            
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#f0f9ff] border border-[#0077b6] text-[#0077b6] text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-6 shadow-sm">
+                <i class="fas fa-graduation-cap"></i> Educational ML Project
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold text-[#03045e] mb-6 tracking-tight leading-tight">
+                Server Load <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#0077b6] to-[#48cae4]">Prediction</span>
+            </h1>
+            
+            <div class="max-w-3xl mx-auto px-2">
+                <p class="text-base sm:text-lg md:text-xl text-[#023e8a] font-medium leading-relaxed mb-8">
+                    An end-to-end Machine Learning system powered by 
+                    <span class="bg-[#e0f2fe] px-2 py-0.5 rounded text-[#0077b6] font-bold border border-[#bae6fd] whitespace-nowrap">Random Forest</span>. 
+                    Simulate training, test predictions in real-time, and analyze server capacity.
+                </p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-3 sm:gap-6 text-xs sm:text-sm font-semibold text-[#03045e]/80">
+                <div class="flex items-center gap-2 bg-[#f8fafc] px-3 py-2 sm:px-4 rounded-full border border-gray-200 shadow-sm">
+                    <i class="fas fa-check-circle text-[#00b4d8]"></i> 91% Accuracy
+                </div>
+                <div class="flex items-center gap-2 bg-[#f8fafc] px-3 py-2 sm:px-4 rounded-full border border-gray-200 shadow-sm">
+                    <i class="fas fa-database text-[#00b4d8]"></i> 2,000+ Records
+                </div>
+                <div class="flex items-center gap-2 bg-[#f8fafc] px-3 py-2 sm:px-4 rounded-full border border-gray-200 shadow-sm">
+                    <i class="fas fa-code text-[#00b4d8]"></i> Python & Flask
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="mainbody flex-grow flex items-center justify-center py-12 px-4 sm:px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-7xl w-full">
+            
+            <a href="/training" class="group relative block h-full transform transition-all duration-300 hover:-translate-y-2">
+                <div class="h-full bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-[#ade8f4] hover:border-[#00b4d8] flex flex-col items-center text-center transition-colors">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 bg-[#caf0f8] rounded-2xl flex items-center justify-center mb-6 text-[#023e8a] group-hover:scale-110 transition-transform shadow-inner">
+                        <i class="fas fa-laptop-code text-2xl sm:text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-[#03045e] mb-3">Code Simulation</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                        Visualize the <strong class="text-[#0077b6]">Training Pipeline</strong> step-by-step. Watch how raw data transforms into a predictive model.
+                    </p>
+                    <span class="mt-auto text-[#0077b6] font-bold group-hover:underline flex items-center text-sm sm:text-base">
+                        View Simulation <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </span>
+                </div>
+            </a>
+
+            <a href="/testing" class="group relative block h-full transform transition-all duration-300 hover:-translate-y-2">
+                <div class="h-full bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-[#ade8f4] hover:border-[#0096c7] flex flex-col items-center text-center transition-colors">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 bg-[#caf0f8] rounded-2xl flex items-center justify-center mb-6 text-[#023e8a] group-hover:scale-110 transition-transform shadow-inner">
+                        <i class="fas fa-vial text-2xl sm:text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-[#03045e] mb-3">Model Testing</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                        Input live parameters like <strong class="text-[#0077b6]">Region</strong> and <strong class="text-[#0077b6]">Active Users</strong> to get an instant CPU Load forecast.
+                    </p>
+                    <span class="mt-auto text-[#0077b6] font-bold group-hover:underline flex items-center text-sm sm:text-base">
+                        Run Prediction <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </span>
+                </div>
+            </a>
+
+            <a href="/download" class="group relative block h-full transform transition-all duration-300 hover:-translate-y-2">
+                <div class="h-full bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-[#ade8f4] hover:border-[#03045e] flex flex-col items-center text-center transition-colors">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 bg-[#caf0f8] rounded-2xl flex items-center justify-center mb-6 text-[#023e8a] group-hover:scale-110 transition-transform shadow-inner">
+                        <i class="fas fa-download text-2xl sm:text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-[#03045e] mb-3">Download Resources</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                        Get the complete workspace: <strong class="text-[#0077b6]">Source Code</strong>, <strong class="text-[#0077b6]">Datasets</strong>, and trained <strong class="text-[#0077b6]">.pkl Models</strong>.
+                    </p>
+                    <span class="mt-auto text-[#0077b6] font-bold group-hover:underline flex items-center text-sm sm:text-base">
+                        Get Files <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </span>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+    <footer class="w-full bg-[#03045e] text-white py-8 sm:py-10 mt-auto border-t border-[#023e8a]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            
+            <div class="flex flex-col md:flex-row justify-between items-center text-sm text-[#caf0f8]/80 mb-6 gap-4 text-center md:text-left">
+                <p>&copy; 2026 Server CPU Load Prediction Project.</p>
+                <div class="flex items-center gap-4 sm:gap-6">
+                    <span><i class="fab fa-python text-white"></i> Python</span>
+                    <span><i class="fab fa-js text-white"></i> Flask</span>
+                    <span><i class="fas fa-wind text-white"></i> Tailwind</span>
+                </div>
+            </div>
+            
+            <div class="bg-white/10 border border-white/20 rounded-xl p-4 flex flex-col sm:flex-row items-start gap-3">
+                <i class="fas fa-exclamation-triangle text-[#fbbf24] mt-1 hidden sm:block"></i>
+                <div class="text-xs sm:text-sm text-[#caf0f8] leading-relaxed text-center sm:text-left">
+                    <strong class="text-white block sm:inline mb-1 sm:mb-0"><i class="fas fa-exclamation-triangle sm:hidden text-[#fbbf24] mr-1"></i> Educational Use Only:</strong> 
+                    This application utilizes a model trained on synthetic data for demonstration purposes. 
+                    Predictions are simulations and should not be used for critical infrastructure management without validation against real-world data.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

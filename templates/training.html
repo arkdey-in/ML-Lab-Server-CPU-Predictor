@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Training Pipeline | Server Load Prediction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link href="{{url_for('static', filename='output.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Modern Code Block Style */
+        .code-block {
+            font-family: 'Courier New', monospace;
+            background-color: #f8fafc; /* Light Gray Background */
+            color: #334155; /* Dark Slate Text */
+            padding: 1.25rem; 
+            border-radius: 0.75rem; 
+            overflow-x: auto;
+            border: 1px solid #e2e8f0; 
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            white-space: pre; /* Keeps code formatting */
+        }
+        /* Syntax Highlighting Colors matching Blue Theme */
+        .keyword { color: #0077b6; font-weight: bold; } 
+        .string { color: #16a34a; } 
+        .func { color: #023e8a; }
+        
+        /* Console Output Style */
+        .output-console {
+            background-color: #0f172a; /* Dark Navy for contrast */
+            color: #4ade80; /* Bright Green text */
+            font-family: 'Courier New', monospace; 
+            padding: 1rem;
+            border-radius: 0.75rem; 
+            min-height: 40px; 
+            white-space: pre-wrap;
+            display: none; 
+            border-left: 4px solid #4ade80;
+            box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.2);
+        }
+        .step-container { margin-bottom: 2rem; scroll-margin-top: 120px; }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-[#caf0f8] via-[#ade8f4] to-[#90e0ef] min-h-screen font-['Inter'] flex flex-col">
+
+    <header class="w-full bg-white/60 backdrop-blur-md border-b border-[#48cae4] shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <h2 class="text-2xl font-bold text-[#03045e]">
+                <a href="/" class="hover:text-[#0077b6] transition-colors">Server Load Predictor</a>
+            </h2>
+            <nav>
+                <a href="/" class="text-[#023e8a] font-semibold hover:text-[#00b4d8] transition-colors">← Back to Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-5xl mx-auto w-full p-6">
+        
+        <div class="text-center mb-10 mt-6">
+            <h1 class="text-4xl font-extrabold text-[#03045e] tracking-tight">Training Pipeline Simulation</h1>
+            <p class="text-[#0077b6] mt-3 text-lg font-medium">Step-by-step execution of the Machine Learning lifecycle</p>
+        </div>
+
+        <div class="step-container bg-white rounded-3xl shadow-xl overflow-hidden border border-[#ade8f4]">
+            <div class="bg-[#03045e] p-4 px-6 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-white"><i class="fas fa-database mr-2"></i> 1. Import & Load Data</h3>
+                <button onclick="runStep(1)" class="bg-[#48cae4] hover:bg-[#90e0ef] text-[#03045e] px-4 py-2 rounded-lg font-bold transition-colors shadow-md transform hover:-translate-y-0.5">
+                    <i class="fas fa-play mr-1"></i> Run
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="code-block">import pandas as pd
+import numpy as np
+import pickle
+import os
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.metrics import mean_absolute_error, r2_score
+
+data_path = 'server_data_advanced.csv'
+df = pd.read_csv(data_path)
+
+print("First 5 Rows")
+print(df.head())</div>
+                <div id="output-1" class="output-console"></div>
+            </div>
+        </div>
+
+        <div class="step-container bg-white rounded-3xl shadow-xl overflow-hidden border border-[#ade8f4]">
+            <div class="bg-[#03045e] p-4 px-6 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-white"><i class="fas fa-info-circle mr-2"></i> 2. Dataset Info</h3>
+                <button onclick="runStep(2)" class="bg-[#48cae4] hover:bg-[#90e0ef] text-[#03045e] px-4 py-2 rounded-lg font-bold transition-colors shadow-md transform hover:-translate-y-0.5">
+                    <i class="fas fa-play mr-1"></i> Run
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="code-block">print("Dataset Info")
+print(df.info())</div>
+                <div id="output-2" class="output-console"></div>
+            </div>
+        </div>
+
+        <div class="step-container bg-white rounded-3xl shadow-xl overflow-hidden border border-[#ade8f4]">
+            <div class="bg-[#03045e] p-4 px-6 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-white"><i class="fas fa-chart-bar mr-2"></i> 3. Summary Statistics</h3>
+                <button onclick="runStep(3)" class="bg-[#48cae4] hover:bg-[#90e0ef] text-[#03045e] px-4 py-2 rounded-lg font-bold transition-colors shadow-md transform hover:-translate-y-0.5">
+                    <i class="fas fa-play mr-1"></i> Run
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="code-block">print("Summary Statistics")
+print(df.describe())</div>
+                <div id="output-3" class="output-console"></div>
+            </div>
+        </div>
+
+        <div class="step-container bg-white rounded-3xl shadow-xl overflow-hidden border border-[#ade8f4]">
+            <div class="bg-[#03045e] p-4 px-6 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-white"><i class="fas fa-search mr-2"></i> 4. Check Missing Values</h3>
+                <button onclick="runStep(4)" class="bg-[#48cae4] hover:bg-[#90e0ef] text-[#03045e] px-4 py-2 rounded-lg font-bold transition-colors shadow-md transform hover:-translate-y-0.5">
+                    <i class="fas fa-play mr-1"></i> Run
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="code-block">print("Missing values")
+print(df.isnull().sum())
+
+encoders = {}
+categorical_cols = ['Provider', 'Server_Type', 'Region', 'OS_Type']</div>
+                <div id="output-4" class="output-console"></div>
+            </div>
+        </div>
+
+        <div class="step-container bg-white rounded-3xl shadow-xl overflow-hidden border border-[#ade8f4]">
+            <div class="bg-[#03045e] p-4 px-6 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-white"><i class="fas fa-code mr-2"></i> 5. Encoding Categorical Data</h3>
+                <button onclick="runStep(5)" class="bg-[#48cae4] hover:bg-[#90e0ef] text-[#03045e] px-4 py-2 rounded-lg font-bold transition-colors shadow-md transform hover:-translate-y-0.5">
+                    <i class="fas fa-play mr-1"></i> Run
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="code-block">for col in categorical_cols:
+    le = LabelEncoder()
+    df[col] = le.fit_transform(df[col])
+    encoders[col] = le</div>
+                <div id="output-5" class="output-console"></div>
+            </div>
+        </div>
+
+        <div class="step-container bg-white rounded-3xl shadow-xl overflow-hidden border border-[#ade8f4]">
+            <div class="bg-[#03045e] p-4 px-6 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-white"><i class="fas fa-table mr-2"></i> 6. Verify Encoding</h3>
+                <button onclick="runStep(6)" class="bg-[#48cae4] hover:bg-[#90e0ef] text-[#03045e] px-4 py-2 rounded-lg font-bold transition-colors shadow-md transform hover:-translate-y-0.5">
+                    <i class="fas fa-play mr-1"></i> Run
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="code-block">print("Encoded Data Sample")
+print(df.head())</div>
+                <div id="output-6" class="output-console"></div>
+            </div>
+        </div>
+
+        <div class="step-container bg-white rounded-3xl shadow-xl overflow-hidden border border-[#ade8f4]">
+            <div class="bg-[#03045e] p-4 px-6 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-white"><i class="fas fa-cut mr-2"></i> 7. Train/Test Split</h3>
+                <button onclick="runStep(7)" class="bg-[#48cae4] hover:bg-[#90e0ef] text-[#03045e] px-4 py-2 rounded-lg font-bold transition-colors shadow-md transform hover:-translate-y-0.5">
+                    <i class="fas fa-play mr-1"></i> Run
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="code-block">X = df.drop(columns=['CPU_Load'])
+y = df['CPU_Load']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)</div>
+                <div id="output-7" class="output-console"></div>
+            </div>
+        </div>
+
+        <div class="step-container bg-white rounded-3xl shadow-xl overflow-hidden border border-[#ade8f4]">
+            <div class="bg-[#03045e] p-4 px-6 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-white"><i class="fas fa-balance-scale mr-2"></i> 8. Feature Scaling</h3>
+                <button onclick="runStep(8)" class="bg-[#48cae4] hover:bg-[#90e0ef] text-[#03045e] px-4 py-2 rounded-lg font-bold transition-colors shadow-md transform hover:-translate-y-0.5">
+                    <i class="fas fa-play mr-1"></i> Run
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="code-block">scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)</div>
+                <div id="output-8" class="output-console"></div>
+            </div>
+        </div>
+
+        <div class="step-container bg-white rounded-3xl shadow-xl overflow-hidden border border-[#ade8f4]">
+            <div class="bg-[#03045e] p-4 px-6 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-white"><i class="fas fa-brain mr-2"></i> 9. Train Random Forest</h3>
+                <button onclick="runStep(9)" class="bg-[#48cae4] hover:bg-[#90e0ef] text-[#03045e] px-4 py-2 rounded-lg font-bold transition-colors shadow-md transform hover:-translate-y-0.5">
+                    <i class="fas fa-play mr-1"></i> Run
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="code-block">model = RandomForestRegressor(n_estimators=100, random_state=42)
+model.fit(X_train, y_train)</div>
+                <div id="output-9" class="output-console"></div>
+            </div>
+        </div>
+
+        <div class="step-container bg-white rounded-3xl shadow-xl overflow-hidden border border-[#ade8f4]">
+            <div class="bg-[#03045e] p-4 px-6 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-white"><i class="fas fa-check-circle mr-2"></i> 10. Evaluation Metrics</h3>
+                <button onclick="runStep(10)" class="bg-[#48cae4] hover:bg-[#90e0ef] text-[#03045e] px-4 py-2 rounded-lg font-bold transition-colors shadow-md transform hover:-translate-y-0.5">
+                    <i class="fas fa-play mr-1"></i> Run
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="code-block">predictions = model.predict(X_test)
+
+print("----- Model Evaluation -----")
+print(f"Mean Absolute Error: {mean_absolute_error(y_test, predictions):.2f}")
+print(f"R2 Score: {r2_score(y_test, predictions) * 100:.2f}%")</div>
+                <div id="output-10" class="output-console"></div>
+            </div>
+        </div>
+
+        <div class="step-container bg-white rounded-3xl shadow-xl overflow-hidden border border-[#ade8f4]">
+            <div class="bg-[#03045e] p-4 px-6 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-white"><i class="fas fa-save mr-2"></i> 11. Save Artifacts</h3>
+                <button onclick="runStep(11)" class="bg-[#48cae4] hover:bg-[#90e0ef] text-[#03045e] px-4 py-2 rounded-lg font-bold transition-colors shadow-md transform hover:-translate-y-0.5">
+                    <i class="fas fa-play mr-1"></i> Run
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="code-block">print("Saving Artifacts...")
+pickle.dump(model, open("model.pkl", "wb"))
+pickle.dump(scaler, open("scaler.pkl", "wb"))
+pickle.dump(encoders, open("encoders.pkl", "wb"))
+
+print("Training Complete. Files saved.")</div>
+                <div id="output-11" class="output-console"></div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-3xl shadow-2xl p-8 border border-[#ade8f4] mt-12 mb-10">
+            <h3 class="text-2xl font-bold text-[#03045e] mb-6 text-center">📊 Generated Visualizations</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-[#caf0f8]/30 p-4 rounded-2xl border border-[#90e0ef]">
+                    <h4 class="text-center font-semibold text-[#0077b6] mb-4">Regression Performance</h4>
+                    <img src="{{ url_for('static', filename='regression_plot.png') }}" class="w-full rounded-xl shadow-sm hover:shadow-lg transition-shadow">
+                </div>
+                <div class="bg-[#caf0f8]/30 p-4 rounded-2xl border border-[#90e0ef]">
+                    <h4 class="text-center font-semibold text-[#0077b6] mb-4">Feature Importance</h4>
+                    <img src="{{ url_for('static', filename='feature_importance.png') }}" class="w-full rounded-xl shadow-sm hover:shadow-lg transition-shadow">
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="w-full bg-[#03045e] text-white py-6 mt-auto">
+        <div class="max-w-7xl mx-auto text-center px-4">
+            <p class="font-light text-[#caf0f8]">&copy; 2026 Server CPU Load Prediction</p>
+        </div>
+    </footer>
+
+    <script>
+        async function runStep(stepId) {
+            const outputBox = document.getElementById(`output-${stepId}`);
+            outputBox.style.display = 'block';
+            outputBox.innerText = "⏳ Running...";
+            outputBox.style.color = "#fbbf24";
+
+            try {
+                const response = await fetch(`/run_step/${stepId}`, { method: 'POST' });
+                const data = await response.json();
+                
+                outputBox.style.color = "#4ade80"; 
+                outputBox.innerText = data.output;
+            } catch (error) {
+                outputBox.style.color = "#f87171"; 
+                outputBox.innerText = "Error: " + error;
+            }
+        }
+    </script>
+</body>
+</html>

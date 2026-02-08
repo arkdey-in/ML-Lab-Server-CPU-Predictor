@@ -1,0 +1,115 @@
+<!-- <div class="container">
+        <h1>🎙️ Audio Emotion Detector</h1>
+
+        <div class="section">
+            <h2>1. Test the Model</h2>
+            <p>Upload a <strong>.wav</strong> file (speech) to detect the speaker's emotion.</p>
+            
+            <input type="file" id="audioInput" accept=".wav">
+            
+            <button class="btn" onclick="predictEmotion()">Analyze Audio</button>
+            
+            <p id="loading" style="display:none;">⏳ Processing audio features...</p>
+            <div id="result"></div>
+        </div>
+
+        <div class="section">
+            <h2>2. Model Performance</h2>
+            <p style="color: var(--text-secondary);">The model uses a Multi-Layer Perceptron (MLP) trained on the RAVDESS dataset. Below are the metrics from the training phase.</p>
+            
+            <h3>📉 Training Loss Curve</h3>
+            <p class="desc">Shows the error rate reduction over 500 training epochs.</p>
+            <div class="training-imgs">
+                <img src="{{ url_for('static', filename='training_loss.png') }}" alt="Training Loss Graph">
+            </div>
+
+            <h3>📊 Confusion Matrix</h3>
+            <p class="desc">Heatmap displaying prediction accuracy across different emotions.</p>
+            <div class="training-imgs">
+                <img src="{{ url_for('static', filename='confusion_mat.png') }}" alt="Confusion Matrix Heatmap">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function predictEmotion() {
+            const fileInput = document.getElementById('audioInput');
+            const resultDiv = document.getElementById('result');
+            const loadingText = document.getElementById('loading');
+
+            // Reset UI
+            resultDiv.style.display = 'none';
+            resultDiv.innerText = "";
+
+            if (fileInput.files.length === 0) {
+                alert("Please select a .wav file first!");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            loadingText.style.display = "block";
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                
+                // Show result
+                loadingText.style.display = "none";
+                resultDiv.style.display = "block";
+                
+                if(data.error) {
+                    resultDiv.innerText = "❌ Error: " + data.error;
+                    resultDiv.style.borderLeftColor = "#e74c3c"; // Red for error
+                    resultDiv.style.backgroundColor = "#fadbd8";
+                    resultDiv.style.color = "#c0392b";
+                } else {
+                    resultDiv.innerText = "✨ Detected Emotion: " + data.emotion.toUpperCase();
+                    resultDiv.style.borderLeftColor = "#2ecc71"; // Green for success
+                    resultDiv.style.backgroundColor = "#d5f5e3";
+                    resultDiv.style.color = "#27ae60";
+                }
+
+            } catch (error) {
+                loadingText.style.display = "none";
+                resultDiv.style.display = "block";
+                resultDiv.innerText = "❌ Connection Error";
+                console.error(error);
+            }
+        }
+    </script> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<header>
+  <h2>Audio Emotion Detector using RAVDESS</h2>
+</header>
+
+<body>
+  <div class="mainbody">
+    <div class="modelprocess">
+      <a href="">Model Training Process</a>
+    </div>
+    <div class="testmodel">
+      <a href="">Model Testing</a>
+    </div>
+    <div class="downloadmodel">
+      <a href="">Download Model</a>
+    </div>
+  </div>
+</body>
+
+<footer>
+
+</footer>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Model | Server Load Prediction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link href="{{url_for('static', filename='output.css')}}" rel="stylesheet">
+</head>
+
+<body class="bg-gradient-to-br from-[#caf0f8] via-[#ade8f4] to-[#90e0ef] min-h-screen font-['Inter'] flex flex-col">
+
+    <header class="w-full bg-white/60 backdrop-blur-md border-b border-[#48cae4] shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <h2 class="text-2xl font-bold text-[#03045e]">
+                <a href="/" class="hover:text-[#0077b6] transition-colors">Server Load Predictor</a>
+            </h2>
+            <nav>
+                <a href="/" class="text-[#023e8a] font-semibold hover:text-[#00b4d8] transition-colors">← Back to Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow flex flex-col items-center justify-center p-6">
+        
+        <div class="max-w-4xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden border border-[#ade8f4]">
+            
+            <div class="bg-[#03045e] p-8 text-center">
+                <h1 class="text-3xl font-bold text-white mb-2">Simulate Server Traffic</h1>
+                <p class="text-[#90e0ef] opacity-90">Enter parameters to forecast CPU utilization</p>
+            </div>
+
+            <div class="p-8 md:p-12">
+                
+                <form id="predictionForm" onsubmit="predictLoad(event)" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <div>
+                        <label class="block text-[#03045e] font-semibold mb-2">Cloud Provider</label>
+                        <select id="provider" class="w-full p-3 rounded-xl border border-[#90e0ef] bg-[#caf0f8]/20 focus:outline-none focus:border-[#0077b6] text-[#023e8a]">
+                            <option value="AWS">AWS</option>
+                            <option value="Azure">Azure</option>
+                            <option value="GCP">GCP</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-[#03045e] font-semibold mb-2">Server Size</label>
+                        <select id="server_type" class="w-full p-3 rounded-xl border border-[#90e0ef] bg-[#caf0f8]/20 focus:outline-none focus:border-[#0077b6] text-[#023e8a]">
+                            <option value="Micro">Micro (Small)</option>
+                            <option value="Large">Large (Medium)</option>
+                            <option value="X-Large">X-Large (High Perf)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-[#03045e] font-semibold mb-2">Region</label>
+                        <select id="region" class="w-full p-3 rounded-xl border border-[#90e0ef] bg-[#caf0f8]/20 focus:outline-none focus:border-[#0077b6] text-[#023e8a]">
+                            <option value="US-East">US-East</option>
+                            <option value="EU-West">EU-West</option>
+                            <option value="AP-South">AP-South</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-[#03045e] font-semibold mb-2">Operating System</label>
+                        <select id="os_type" class="w-full p-3 rounded-xl border border-[#90e0ef] bg-[#caf0f8]/20 focus:outline-none focus:border-[#0077b6] text-[#023e8a]">
+                            <option value="Linux">Linux</option>
+                            <option value="Ubuntu">Ubuntu</option>
+                            <option value="Windows">Windows Server</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-[#03045e] font-semibold mb-2">Hour of Day (0-23)</label>
+                        <input type="number" id="hour" min="0" max="23" value="12" class="w-full p-3 rounded-xl border border-[#90e0ef] focus:outline-none focus:border-[#0077b6]">
+                    </div>
+
+                    <div>
+                        <label class="block text-[#03045e] font-semibold mb-2">Active Users</label>
+                        <input type="number" id="active_users" value="500" class="w-full p-3 rounded-xl border border-[#90e0ef] focus:outline-none focus:border-[#0077b6]">
+                    </div>
+
+                    <div>
+                        <label class="block text-[#03045e] font-semibold mb-2">Network Packets In</label>
+                        <input type="number" id="network_packets" value="1500" class="w-full p-3 rounded-xl border border-[#90e0ef] focus:outline-none focus:border-[#0077b6]">
+                    </div>
+
+                    <div>
+                        <label class="block text-[#03045e] font-semibold mb-2">Disk I/O Speed (MB/s)</label>
+                        <input type="number" id="disk_io" value="100" step="0.1" class="w-full p-3 rounded-xl border border-[#90e0ef] focus:outline-none focus:border-[#0077b6]">
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label class="block text-[#03045e] font-semibold mb-2">Current Memory Usage (%)</label>
+                        <input type="number" id="memory_usage" value="45" min="0" max="100" step="0.1" class="w-full p-3 rounded-xl border border-[#90e0ef] focus:outline-none focus:border-[#0077b6]">
+                    </div>
+
+                    <div class="md:col-span-2 mt-4">
+                        <button type="submit" class="w-full bg-[#0077b6] hover:bg-[#023e8a] text-white font-bold py-4 rounded-xl text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                            Predict CPU Load ⚡
+                        </button>
+                    </div>
+                </form>
+
+                <div id="resultBox" class="hidden mt-8 text-center p-6 rounded-xl border-2 transition-all duration-500 bg-[#f0f9ff] border-[#00b4d8]">
+                    <p class="text-sm text-gray-500 uppercase tracking-widest font-semibold mb-1">Forecasted Load</p>
+                    <h3 id="loadValue" class="text-5xl font-extrabold text-[#03045e] mb-2">--%</h3>
+                    <p id="loadStatus" class="text-lg font-medium text-[#0077b6]">Status: --</p>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="w-full bg-[#03045e] text-white py-6 mt-auto">
+        <div class="max-w-7xl mx-auto text-center px-4">
+            <p class="font-light text-[#caf0f8]">&copy; 2026 Server CPU Load Prediction</p>
+        </div>
+    </footer>
+
+    <script>
+        async function predictLoad(event) {
+            event.preventDefault(); // Stop page reload
+
+            // Collect Data
+            const data = {
+                provider: document.getElementById('provider').value,
+                server_type: document.getElementById('server_type').value,
+                region: document.getElementById('region').value,
+                os_type: document.getElementById('os_type').value,
+                hour: document.getElementById('hour').value,
+                active_users: document.getElementById('active_users').value,
+                network_packets: document.getElementById('network_packets').value,
+                disk_io: document.getElementById('disk_io').value,
+                memory_usage: document.getElementById('memory_usage').value
+            };
+
+            const resultBox = document.getElementById('resultBox');
+            const loadValue = document.getElementById('loadValue');
+            const loadStatus = document.getElementById('loadStatus');
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+
+                if (result.error) {
+                    alert("Error: " + result.error);
+                } else {
+                    resultBox.classList.remove('hidden');
+                    loadValue.innerText = result.cpu_load + "%";
+                    loadStatus.innerText = "Status: " + result.status;
+
+                    // Color Coding Logic
+                    if(result.cpu_load > 90) {
+                        loadValue.style.color = "#ef4444"; // Red
+                        resultBox.style.borderColor = "#ef4444";
+                    } else if (result.cpu_load > 75) {
+                        loadValue.style.color = "#f59e0b"; // Orange
+                        resultBox.style.borderColor = "#f59e0b";
+                    } else {
+                        loadValue.style.color = "#03045e"; // Blue
+                        resultBox.style.borderColor = "#00b4d8";
+                    }
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Failed to connect to server.");
+            }
+        }
+    </script>
+</body>
+</html>

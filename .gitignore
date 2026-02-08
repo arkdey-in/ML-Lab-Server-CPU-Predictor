@@ -1,0 +1,18 @@
+# Python junk
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Mac junk
+.DS_Store
+
+# Virtual Environment
+venv/
+env/
+.env
+
+__pycache__/
+*.py[cod]
+.DS_Store
+venv/
+env/
