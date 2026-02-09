@@ -8,7 +8,7 @@ import io
 
 app = Flask(__name__)
 
-# --- CONFIGURATION ---
+
 DATA_PATH = "server_data_advanced.csv"
 SCRIPT_PATH = "train_model.py"
 
@@ -22,8 +22,6 @@ try:
 except:
     print("⚠️ Artifacts not found. Run train_model.py first.")
 
-
-# --- 2. HELPER FUNCTIONS ---
 def process_input(data):
     try:
         input_data = pd.DataFrame(
@@ -54,7 +52,6 @@ def process_input(data):
         return None, str(e)
 
 
-# --- 3. PAGE ROUTES ---
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -75,7 +72,7 @@ def download_page():
     return render_template("download.html")
 
 
-# --- 4. SIMULATION LOGIC (Isolated) ---
+
 @app.route("/run_step/<int:step_id>", methods=["POST"])
 def run_step(step_id):
     try:
@@ -235,8 +232,6 @@ def run_step(step_id):
     except Exception as e:
         return jsonify({"output": f"Error: {str(e)}"})
 
-
-# --- 5. PREDICT ROUTE ---
 @app.route("/predict", methods=["POST"])
 def predict():
     try:
